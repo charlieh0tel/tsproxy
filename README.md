@@ -1,6 +1,6 @@
 # tsproxy
 
-tsproxy is a TCP proxy that can expose TCP services accessible on the
+tsproxy is a proxy that can expose TCP services accessible from the
 proxy machine to your tailnet.
 
 ## Usage
