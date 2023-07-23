@@ -15,6 +15,7 @@ You will neeed to authorize the new host using the URL.
 
 ## Acknowledgements
 
-Inspired by James Tucker's https://github.com/raggi/teltailnet/ .
+Inspired in large measure by James Tucker's
+https://github.com/raggi/teltailnet/ .
 
 
