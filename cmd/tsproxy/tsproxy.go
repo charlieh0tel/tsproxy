@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	hostname = flag.String("hostname", "", "tailscale host name")
+	hostname   = flag.String("hostname", "", "tailscale host name")
 	targetAddr = flag.String("target", "", "target address")
 )
 
@@ -20,12 +20,12 @@ func main() {
 
 	if *hostname == "" {
 		flag.PrintDefaults()
-		log.Fatal("No hostname given");
+		log.Fatal("No hostname given")
 	}
 
 	if *targetAddr == "" {
 		flag.PrintDefaults()
-		log.Fatal("No target address given");
+		log.Fatal("No target address given")
 	}
 
 	s := new(tsnet.Server)
@@ -36,7 +36,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	ln, err := s.Listen("tcp", ":" + port)
+	ln, err := s.Listen("tcp", ":"+port)
 	if err != nil {
 		log.Fatal(err)
 	}
