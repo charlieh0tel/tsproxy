@@ -39,12 +39,16 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	dir := filepath.Join(confDir, "tsproxy-"+*hostname)
 	if err := os.MkdirAll(dir, 0700); err != nil {
 		log.Fatal(err)
 	}
 	s.Dir = dir
+
+	err = s.Start()
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	_, port, err := net.SplitHostPort(*targetAddr)
 	if err != nil {
