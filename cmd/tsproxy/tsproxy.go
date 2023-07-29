@@ -5,6 +5,8 @@ import (
 	"io"
 	"log"
 	"net"
+	"os"
+	"path/filepath"
 
 	"tailscale.com/tsnet"
 )
@@ -29,8 +31,20 @@ func main() {
 	}
 
 	s := new(tsnet.Server)
-	s.Hostname = *hostname
 	defer s.Close()
+
+	s.Hostname = *hostname
+
+	confDir, err := os.UserConfigDir()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	dir := filepath.Join(confDir, "tsproxy-"+*hostname)
+	if err := os.MkdirAll(dir, 0700); err != nil {
+		log.Fatal(err)
+	}
+	s.Dir = dir
 
 	_, port, err := net.SplitHostPort(*targetAddr)
 	if err != nil {
