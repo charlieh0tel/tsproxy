@@ -1,0 +1,13 @@
+[Unit]
+Description=tsproxy for %i
+StartLimitIntervalSec=10
+StartLimitBurst=2
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/home/ch/src/tsproxy/released/tsproxy --hostname %i --target %i.murgatroid.com:23
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
