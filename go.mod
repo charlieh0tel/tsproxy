@@ -89,5 +89,5 @@ require (
 	gvisor.dev/gvisor v0.0.0-20250205023644-9414b50a5633 // indirect
 	inet.af/peercred v0.0.0-20210906144145-0893ea02156a // indirect
 	nhooyr.io/websocket v1.8.10 // indirect
-	tailscale.com v1.88.2 // indirect
+	tailscale.com v1.88.3 // indirect
 )
