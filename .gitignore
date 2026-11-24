@@ -1,4 +1,4 @@
-tsproxy
+/tsproxy
 # dpkg-buildpackage output
 debian/tsproxy/
 debian/build/
