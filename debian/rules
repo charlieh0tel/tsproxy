@@ -1,0 +1,26 @@
+#!/usr/bin/make -f
+
+# go.mod needs a newer Go than Debian stable ships. Debian's go defaults to
+# GOTOOLCHAIN=local; auto lets it fetch the toolchain go.mod names.
+export GOTOOLCHAIN = auto
+export GOPATH = $(CURDIR)/debian/.go
+export GOCACHE = $(CURDIR)/debian/.go/cache
+export GOFLAGS = -trimpath -modcacherw
+# Static, so the one build runs on any release the apt repo serves.
+export CGO_ENABLED = 0
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	go build -ldflags='-s -w' -o debian/build/tsproxy ./cmd/tsproxy
+
+override_dh_auto_test:
+	go vet ./...
+	go test ./...
+
+override_dh_auto_clean:
+	rm -rf debian/build debian/.go
+
+# The binary carries no DWARF to compress.
+override_dh_dwz:

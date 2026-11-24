@@ -1,0 +1,8 @@
+tsproxy (1.0.1) unstable; urgency=medium
+
+  * Package for Debian: /usr/bin/tsproxy and a tsproxy@.service systemd
+    user unit.
+  * tsproxy@.service reads the target address from
+    ~/.config/tsproxy/NAME.env instead of hardcoding it.
+
+ -- Christopher Hoover <ch@murgatroid.com>  Mon, 23 Nov 2026 20:22:05 -0800

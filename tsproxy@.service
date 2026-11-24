@@ -6,7 +6,8 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/home/ch/src/tsproxy/released/tsproxy --hostname %i --target %i.murgatroid.com:23
+EnvironmentFile=%E/tsproxy/%i.env
+ExecStart=/usr/bin/tsproxy --hostname %i --target ${TARGET}
 Restart=on-failure
 
 [Install]

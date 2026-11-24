@@ -1,0 +1,18 @@
+Source: tsproxy
+Section: net
+Priority: optional
+Maintainer: Christopher Hoover <ch@murgatroid.com>
+Build-Depends: debhelper-compat (= 13), golang-go (>= 2:1.21~), ca-certificates
+Standards-Version: 4.6.2
+Rules-Requires-Root: no
+Homepage: https://github.com/charlieh0tel/tsproxy
+
+Package: tsproxy
+Architecture: any
+Depends: ${misc:Depends}
+Description: Expose a TCP service to a tailnet
+ tsproxy joins a tailnet as its own host and forwards connections it
+ receives there to a TCP service reachable from the machine it runs on.
+ .
+ A systemd user unit, tsproxy@.service, runs one proxy per tailnet host
+ name.
