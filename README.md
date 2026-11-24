@@ -44,6 +44,9 @@ systemctl --user enable --now tsproxy@name-on-tailnet.service
 The first start logs the authorization URL; read it with
 `journalctl --user -u tsproxy@name-on-tailnet.service`.
 
+The file is a systemd `EnvironmentFile`, so it can also set variables
+that Tailscale reads, such as `TS_AUTHKEY` to join without the URL.
+
 ## Acknowledgements
 
 Inspired in large measure by James Tucker's
