@@ -1,3 +1,14 @@
+tsproxy (1.1.0) unstable; urgency=medium
+
+  * -hostname is optional; it defaults to the first label of the target
+    host.
+  * tsproxy@.service takes the target as its instance name
+    (tsproxy@host:port) and no longer needs ~/.config/tsproxy/NAME.env.
+    The file is optional, read as ~/.config/tsproxy/INSTANCE.env.
+  * Remove After=network.target from the user unit, where it did nothing.
+
+ -- Christopher Hoover <ch@murgatroid.com>  Mon, 23 Nov 2026 20:47:02 -0800
+
 tsproxy (1.0.1) unstable; urgency=medium
 
   * Package for Debian: /usr/bin/tsproxy and a tsproxy@.service systemd

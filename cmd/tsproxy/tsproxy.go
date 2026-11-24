@@ -2,32 +2,56 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"io"
 	"log"
 	"net"
+	"net/netip"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"tailscale.com/tsnet"
 )
 
 var (
-	hostname   = flag.String("hostname", "", "tailscale host name")
-	targetAddr = flag.String("target", "", "target address")
+	hostname   = flag.String("hostname", "", "tailscale host name (default: first label of the target host)")
+	targetAddr = flag.String("target", "", "target address, host:port")
 )
+
+// defaultHostname returns the tailnet host name to use for target when none
+// is given: the first DNS label of the target's host.  An IP address has no
+// such label, so it is an error.
+func defaultHostname(targetHost string) (string, error) {
+	if _, err := netip.ParseAddr(targetHost); err == nil {
+		return "", fmt.Errorf("target %q is an IP address; give -hostname", targetHost)
+	}
+	label, _, _ := strings.Cut(targetHost, ".")
+	if label == "" {
+		return "", fmt.Errorf("target host %q has no name; give -hostname", targetHost)
+	}
+	return label, nil
+}
 
 func main() {
 	log.SetFlags(0)
 	flag.Parse()
 
-	if *hostname == "" {
-		flag.PrintDefaults()
-		log.Fatal("No hostname given")
-	}
-
 	if *targetAddr == "" {
 		flag.PrintDefaults()
 		log.Fatal("No target address given")
+	}
+
+	targetHost, port, err := net.SplitHostPort(*targetAddr)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if *hostname == "" {
+		*hostname, err = defaultHostname(targetHost)
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 
 	s := new(tsnet.Server)
@@ -50,10 +74,6 @@ func main() {
 		log.Fatal(err)
 	}
 
-	_, port, err := net.SplitHostPort(*targetAddr)
-	if err != nil {
-		log.Fatal(err)
-	}
 	ln, err := s.Listen("tcp", ":"+port)
 	if err != nil {
 		log.Fatal(err)

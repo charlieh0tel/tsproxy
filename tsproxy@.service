@@ -2,12 +2,11 @@
 Description=tsproxy for %i
 StartLimitIntervalSec=10
 StartLimitBurst=2
-After=network.target
 
 [Service]
 Type=simple
-EnvironmentFile=%E/tsproxy/%i.env
-ExecStart=/usr/bin/tsproxy --hostname %i --target ${TARGET}
+EnvironmentFile=-%E/tsproxy/%i.env
+ExecStart=/usr/bin/tsproxy --target %i
 Restart=on-failure
 
 [Install]
