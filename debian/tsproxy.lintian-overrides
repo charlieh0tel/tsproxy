@@ -1,0 +1,2 @@
+# Go binary, built with CGO_ENABLED=0 so it does not depend on the build host's libc.
+tsproxy: statically-linked-binary [usr/bin/tsproxy]

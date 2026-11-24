@@ -1,0 +1,2 @@
+debian/build/tsproxy usr/bin
+tsproxy@.service usr/lib/systemd/user
